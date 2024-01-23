@@ -1,0 +1,5 @@
+<root>
+    <record><FIELD_1>A</FIELD_1><FIELD_2>B</FIELD_2><FIELD_3>1</FIELD_3><FIELD_4><value>1</value><value>2</value><value>3</value></FIELD_4><FIELD_5><NESTED_1>A1</NESTED_1><NESTED_2>1</NESTED_2></FIELD_5></record>
+    <record><FIELD_1>C</FIELD_1><FIELD_2>D</FIELD_2><FIELD_3>2</FIELD_3><FIELD_4><value>1</value><value>2</value><value>3</value></FIELD_4><FIELD_5><NESTED_1>B2</NESTED_1><NESTED_2>2</NESTED_2></FIELD_5></record>
+    <record><FIELD_1>E</FIELD_1><FIELD_2>F</FIELD_2><FIELD_3>3</FIELD_3><FIELD_4><value>1</value><value>2</value><value>3</value></FIELD_4><FIELD_5><NESTED_1>C3</NESTED_1><NESTED_2>3</NESTED_2></FIELD_5></record>
+</root>

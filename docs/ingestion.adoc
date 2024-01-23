@@ -1,0 +1,24 @@
+## Ingestion Framework
+
+It is a config driven framework written in Java that makes it easy to ingest data from sources like Files, Relational Databases and PubSub into BigQuery. The Framework also has support for
+standardizing  and sorting(finding the latest record ) the data. All the three are defined as flow with each having its own config inside the flow
+
+        flow{
+            ingestion{
+            }
+            transformation{
+            }
+            latestrecord{
+            }
+        }
+
+
+### Ingestion
+
+* <<configurations.adoc#,Configuration Specification>> - a deep-dive into the configuration options of the ingestion part.
+
+
+### Standardization
+
+
+### Sorting

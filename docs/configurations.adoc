@@ -1,0 +1,510 @@
+= Configuration specification
+:toc: left
+:toclevels: 5
+
+This page specifies the configurations available in Ingestion Framework.
+
+== Example configuration
+
+As illustration, a typical  application that reads a plain uncompressed CSV files, add metadata, and writes
+the results to BigQuery might have the following configuration.
+
+[source,HOCON]
+----
+
+flow {
+  ingestion {
+    name=PASACCT01-FileIngestion
+    ingestionClassName="org.ascension.addg.gcp.ingestion.read.file.FileIngestion"
+    pipelineOptions {
+    }
+    steps {
+      step-01 {
+        type=ReadFile
+        dataFormat=DELIMITED
+        compressionFormat=NONE
+        delimiterFormat=CUSTOM
+        fileInfo {
+          delimiterChar="|"
+          hasHeader=false
+          ignoreEmptyLines=true
+          allowExtraColumns=true
+          replaceHeaderSpecialCharactersWith="_"
+          header=[SRC_FILE_APP_ID,HDR_REC_TYP,PT_ACCT_NBR,VST_NBR,LCL_ACCT_STUS,ACCT_STUS_CD,FAC_ID,PRMRY_PT_ID,PRMRY_PT_ID_TYP,PRMRY_PT_ID_LVL,SEC_PT_ID,SEC_PT_ID_TYP,SEC_PT_ID_LVL,THRD_PT_ID,THRD_PT_ID_TYP,THRD_PT_ID_LVL,PT_NM_PRFX,PT_FRST_NM,PT_MID_NM,PT_LST_NM,PT_NM_SUF,ADMSN_DT,DC_DT,PRMRY_SIPG,SEC_SIPG,THRD_SIPG,FRTH_SIPG,INS_CO_ID_1,INS_CO_ID_2,INS_CO_ID_3,INS_CO_ID_4,INS_CO_NM_1,INS_CO_NM_2,INS_CO_NM_3,INS_CO_NM_4,INS_PLN_ID_1,INS_PLN_ID_2,INS_PLN_ID_3,INS_PLN_ID_4,INS_PLN_NM_1,INS_PLN_NM_2,INS_PLN_NM_3,INS_PLN_NM_4,GUARNTR,MS_DRG,APR_DRG,APR_DRG_ROM,PHYS_1_NPI,PHYS_1_ROLE,PHYS_1_LCL_ID,PHYS_1_SPECLTY,PHYS_1_FRST_NM,PHYS_1_MID_NM,PHYS_1_LST_NM,PHYS_2_NPI,PHYS_2_ROLE,PHYS_2_LCL_ID,PHYS_2_SPECLTY,PHYS_2_FRST_NM,PHYS_2_MID_NM,PHYS_2_LST_NM,PHYS_3_NPI,PHYS_3_ROLE,PHYS_3_LCL_ID,PHYS_3_SPECLTY,PHYS_3_FRST_NM,PHYS_3_MID_NM,PHYS_3_LST_NM,PHYS_4_NPI,PHYS_4_ROLE,PHYS_4_LCL_ID,PHYS_4_SPECLTY,PHYS_4_FRST_NM,PHYS_4_MID_NM,PHYS_4_LST_NM,PHYS_5_NPI,PHYS_5_ROLE,PHYS_5_LCL_ID,PHYS_5_SPECLTY,PHYS_5_FRST_NM,PHYS_5_MID_NM,PHYS_5_LST_NM,PHYS_6_NPI,PHYS_6_ROLE,PHYS_6_LCL_ID,PHYS_6_SPECLTY,PHYS_6_FRST_NM,PHYS_6_MID_NM,PHYS_6_LST_NM,PHYS_7_NPI,PHYS_7_ROLE,PHYS_7_LCL_ID,PHYS_7_SPECLTY,PHYS_7_FRST_NM,PHYS_7_MID_NM,PHYS_7_LST_NM,PHYS_8_NPI,PHYS_8_ROLE,PHYS_8_LCL_ID,PHYS_8_SPECLTY,PHYS_8_FRST_NM,PHYS_8_MID_NM,PHYS_8_LST_NM,PHYS_9_NPI,PHYS_9_ROLE,PHYS_9_LCL_ID,PHYS_9_SPECLTY,PHYS_9_FRST_NM,PHYS_9_MID_NM,PHYS_9_LST_NM,PHYS_10_NPI,PHYS_10_ROLE,PHYS_10_LCL_ID,PHYS_10_SPECLTY,PHYS_10_FRST_NM,PHYS_10_MID_NM,PHYS_10_LST_NM,PHYS_11_NPI,PHYS_11_ROLE,PHYS_11_LCL_ID,PHYS_11_SPECLTY,PHYS_11_FRST_NM,PHYS_11_MID_NM,PHYS_11_LST_NM,PHYS_12_NPI,PHYS_12_ROLE,PHYS_12_LCL_ID,PHYS_12_SPECLTY,PHYS_12_FRST_NM,PHYS_12_MID_NM,PHYS_12_LST_NM,PHYS_13_NPI,PHYS_13_ROLE,PHYS_13_LCL_ID,PHYS_13_SPECLTY,PHYS_13_FRST_NM,PHYS_13_MID_NM,PHYS_13_LST_NM,PHYS_14_NPI,PHYS_14_ROLE,PHYS_14_LCL_ID,PHYS_14_SPECLTY,PHYS_14_FRST_NM,PHYS_14_MID_NM,PHYS_14_LST_NM,PHYS_15_NPI,PHYS_15_ROLE,PHYS_15_LCL_ID,PHYS_15_SPECLTY,PHYS_15_FRST_NM,PHYS_15_MID_NM,PHYS_15_LST_NM,PT_CLAS_CD,LCL_PT_ENC_TYP_MJR,LCL_PT_ENC_TYP_MINR,INS_PLN_1_GRP_ID,INS_PLN_2_GRP_ID,INS_PLN_3_GRP_ID,INS_PLN_4_GRP_ID,INS_PLN_1_PAT_ID,INS_PLN_2_PAT_ID,INS_PLN_3_PAT_ID,INS_PLN_4_PAT_ID,PAT_SSN_NBR,MLNG_ADDR_1,MLNG_ADDR_2,CIT_NM,ST_OR_PROVNC_CD,ZP_OR_PSTL_CD,CTRY_NM,COUN_NM,TELE_AREA_CD,TELE_NBR,MTHR_MDN_NM,MTHR_PRI_PT_ID,MTHR_PRI_PT_ID_TYP,MTHR_PT_ACCT_NBR,MTHR_VST_NBR,NWBRN_BABY_INDICTR,MULT_BIR_INDICTR,NUM_BRTHS,BIR_ORD,BRTH_WGHT_GRMS,BIR_DT,BIR_TM,GNDR_BRTH,GNDR_BRTH_LCL,ADMIN_GNDR_CD,ADMIN_GNDR_CD_LCL,GNDR_IDENT_CD,GNDR_IDENT_CD_LCL,RC_CD_1,LCL_RC_CD_1,RC_CD_2,LCL_RC_CD_2,RC_CD_3,LCL_RC_CD_3,RC_CD_4,LCL_RC_CD_4,RC_CD_5,LCL_RC_CD_5,PRMRY_LANG_CD,LCL_LANG_CD,MRTL_STUS_CD,LCL_MRTL_STUS_CD,RELGN_CD,LCL_RELGN_CD,ETHNCITY,LCL_ETHNCITY,CITZ,PT_DTH_INDICTR,PT_DTH_DT,EXPECTED_REIMB,MS_DRG_VRSN,APR_DRG_VER,ADMSN_TYP_CD,LCL_ADMSN_TYP_CD,ADMSN_SRC_CD,LCL_ADMSN_SRC_CD,FAC_XFR_FRM_CD,FAC_XFR_FRM_DESC,FIN_CLASS_ORIG,FIN_CLASS_CRRNT,DC_DISPOSTN_CD,LCL_DC_DISPOSTN_CD,FAC_XFR_TO_CD,FAC_XFR_TO_DESC,MD_OF_ARRV_CD,LCL_MODL_OF_ARRV_CD,PHYS_ORD_ADMIT_DTTM,PHYS_ORD_DSCHG_DTTM,ESTD_LEN_OF_INPT_STY,ACTL_LEN_OF_INPT_STY,READM_INDICTR,PREADMT_NBR,VST_PRIO_CD,LCL_VST_PRIO_CD,ADV_DIRV_CD,LCL_HOSP_SVC_CD,LCL_PNT_OF_CARE,RM,BED,DEPT]
+        }
+        BQtableName=pasacct01_land
+      }
+      step-02 {
+        type=AddMetadata
+        implementation= "org.ascension.addg.gcp.ingestion.file_based.dofns.AddMetadata"
+        methodsClassName="org.ascension.addg.gcp.ingestion.core.Utils"
+        fields=[
+          {
+            fieldName="meta_file_src_group_id"
+            #fieldValue=null
+            #meta_file_name is the default argument passed to the method
+            fieldMapping={
+              methodName="getMoMetaCols"
+              args=[1]
+            }
+          },
+          {
+            fieldName="meta_file_src_system_category"
+            fieldMapping={
+              methodName="getMoMetaCols"
+              args=[2]
+            }
+          },
+          {
+            fieldName="meta_file_src_system_id"
+            fieldMapping={
+              methodName="getMoMetaCols"
+              args=[3]
+            }
+          },
+          {
+            fieldName="meta_file_process_name"
+            fieldMapping={
+              methodName="getMoMetaCols"
+              args=[4]
+            }
+          },
+          {
+            fieldName="meta_file_date"
+            fieldMapping={
+              methodName="getMoMetaCols"
+              args=[5]
+            }
+          },
+          {
+            fieldName="meta_file_version"
+            fieldMapping={
+              methodName="getMoMetaCols"
+              args=[6]
+            }
+          }
+
+        ]
+
+      }
+      step-03 {
+              type=WriteToBQ
+              BQdatasetName="mosaic_ingest"
+              createDisposition=CREATE_IF_NEEDED
+              writeDisposition=WRITE_APPEND
+              partitionBy={
+                columnName="bq_load_timestamp"
+                dataType="TIMESTAMP"
+              }
+      }
+    }
+  }
+}
+----
+== Ingestion
+Ingestion-level configurations have the `ingestion.` prefix.
+[cols="2,8", options="header"]
+|===
+|Configuration suffix|Description
+
+|name
+|The application/job name in DataFlow. This can be also set using dataflow jobName argument.
+
+|ingestionClassName
+|The main entry point to the ingestion. This value will be static for all the ingestions irrespective of source.
+
+|pipelineOptions.*
+|This section is used to pass any Dataflow options as config to the framework. Default is empty.
+
+|===
+
+== Steps
+
+Step configurations have the `steps.[stepname].` prefix. All steps can have the below configurations.
+
+[cols="2,8", options="header"]
+|===
+|Configuration suffix|Description
+
+|type
+|The step type. Currently supports `ReadFile`, `ReadJDBC`, `ReadPubSub`.
+
+|BQtableName
+|The BigQuery table name.
+
+
+|===
+
+=== ReadFile
+
+Step `type` = `ReadFile`.
+
+[cols="2,8", options="header"]
+|===
+|Configuration suffix|Description
+
+|dataFormat
+|The data format of the file. Accepted values are `DELIMITED`, `AVRO`, `JSON`, `XML`. Currently implemented for `DELIMITED` , `XML` and `JSON`.
+
+|compressionFormat
+|The compression format of the file. Accepted values are `NONE`, `COMPRESSED_FILE`, `ARCHIVE`, `COMPRESSED_ARCHIVE`. Use one of the defined values based on the compression format of the input.
+
+Examples:
+
+ Uncompressed -> NONE
+
+.gz compressed -> COMPRESSED_FILE
+
+zip file with multiple uncompressed files -> ARCHIVE
+
+tar file -> COMPRESSED_ARCHIVE
+
+
+|delimiterFormat
+|If the file is delimited, use `CUSTOM` and define how to parse the file using `fileInfo` section.
+
+|skipFilesWithPattern
+|This param is used to skip files for processing inside an Archive ex: zip inside zips or control file inside zip etc.
+
+|===
+
+==== fileInfo for delimited
+
+`type` = `ReadFile` and `dataFormat` = `DELIMITED` and `delimiterFormat` = `CUSTOM`
+
+Use the `fileInfo` config to define on how to parse the file. fileInfo configuration have the `steps.[stepname].fileInfo.` prefix.
+
+[cols="2,8", options="header"]
+|===
+|Configuration suffix|Description
+
+|delimiterChar
+|The char used for value separation, must not be a line break character.
+
+|hasHeader
+|Whether the file has header as the first line.
+
+|ignoreEmptyLines
+|Whether empty lines between records are ignored when parsing input.
+
+|allowExtraColumns
+|Specifies whether missing column names are allowed when parsing the header line.
+
+|replaceHeaderSpecialCharactersWith
+|The character that should be used to replace any special characters in the column names.
+When set replaceHeaderSpecialCharactersWith="_" a column name `FIRST NAME`  will be converted to `FIRST_NAME`. This is required because Bigquery does not support all special characters in the column names when creating a table.
+
+|header
+|If the file does not have header or if you want to overwrite the header in the file you can use this parameter. When passed this value takes precedence over the header in the file. The header should be passed as a list.
+
+|===
+
+
+==== fileInfo for JSON
+
+`type` = `ReadFile` and `dataFormat` = `JSON`.
+
+The config file will be same as above delimited file other than the `fileinfo` config parameter
+,Use the `fileInfo` config parameter to provide the  specific path of each JSON element.
+
+[cols="2,8", options="header"]
+|===
+|Configuration suffix|Description
+
+|jsonFields
+|The JSON path of each field that need to be extracted from the JSON file, if any field provided with an empty character or  null as a JSON path
+a null value will be inserted for that field.
+|Example's of jsonFields parameter
+
+|Example1
+
+jsonFields={"ATHENAPRACTICEID":"ATHENAPRACTICEID","TITLE":"TITLE","DOCUMENTID":"DOCUMENTID","EFFECTIVETIME":"EFFECTIVETIME",
+"DOCUMENTTYPE":"DOCUMENTTYPE","PATIENTID":"PATIENTID","DEPARTMENTID":"DEPARTMENTID","CHARTSHARINGGROUPID":"CHARTSHARINGGROUPID","CHARTID":"CHARTID","ATTACHMENT":""}
+
+Example2
+
+Sample JSON : String line ="{ \"store\": {\"book\": [ { \"category\": \"reference\",\"author\": \"Nigel Rees\",\"title\": \"Sayings of the Century\", \"price\": 8.95}]}}";
+
+jsonFields={"PRICE":"$.store.book[0].price","CATEGORY":"$.store.book[0].category"}
+|===
+
+=== Add Metadata
+
+Step `type` = `AddMetadata`
+
+This Step is used along with `ReadFile` step to add specific meta data fields to the records like fileName, ministry , source etc.
+
+[cols="3*", options="header"]
+|===
+|Configuration suffix|type|Description
+
+|implementation
+|string
+|This param is used to provide the implementation class which the users can overwrite and specify their own version.
+Default value is `org.ascension.addg.gcp.ingestion.file_based.dofns.AddMetadata`
+
+|methodsClassName
+|string
+|This param is used to define the class name which has functions that are to be invoked defined in the below Fields section
+
+|fields
+|List<Config>
+a| The metadata fields that are to be added to each record should be defined as list. Each element in the list will be a config
+that looks like
+[source,HOCON]
+----
+{
+    fieldName="meta_file_src_group_id"
+    #fieldValue=null
+    #meta_file_name is the default argument passed to the method
+    fieldMapping
+      {
+        methodName="getMoMetaCols"
+        args=[1]
+      }
+}
+----
+
+`fieldName` contains the name of the field that should be added.If the value is constant you can specify the value using `fieldValue` or if the value needs to generated based on a function use `fieldMapping`
+The `fieldMapping` has the `methodName` tag that tells which method the process needs to invoke to generate the column value. The function/method needs to be implemented in the class defined for `methodsClassName` tag
+If the method accepts/needs any args you can pass the arguments as above.
+
+Note:
+
+* meta_file_name is default argument passed to the method defined in the `methodName` tag.
+
+* `bq_load_timestamp` is default column  added by the process. This denotes the time at which the record landed into BigQuery
+
+|===
+
+=== ReadJDBC
+
+Step `type` = `ReadJDBC`.
+All the params required for this step are passed in `JDBCInfo` config. Below is the example config for this step
+[source,HOCON]
+----
+
+step-01 {
+    type=ReadJDBC
+    JDBCInfo{
+        username{
+            value=""
+            encrypted=true
+        }
+        password{
+            value=""
+            encrypted=true
+        }
+        connectionURL{
+            value="jdbc:oracle:thin:@myhost:1521:orcl"
+            encrypted=false
+        }
+        connectionProperties="FetchTSWTZasTimestamp=true"
+        kmsEncryptionKey=${ek}
+        driverJars=""
+        driverClassName=oracle.jdbc.OracleDriver
+        parallelism=""
+        fetchSize=""
+        splitByKey=""
+        query="select * from table where $CONDITIONS"
+        schemaQuery="SELECT * from "${rdbm_table}" where ROWNUM=1"
+        }
+}
+
+----
+
+==== JDBCInfo
+
+use this section to define params for ingesting data from any relational data base management systems. Please refer to the above same config. JDBCInfo configurations have the `steps.[stepname].JDBCInfo.` prefix.
+
+
+[cols="3*", options="header"]
+|===
+|Configuration suffix|type|Description
+
+|username
+|config
+a|The username by which the process connects to the database. The value can be passed as plain text , as encrypted and also can be stored in secrets and use secretId as value.
+
+If username is passed as the plain text the config looks like
+
+[source,HOCON]
+----
+username
+{
+    value=pvemuri
+    encrypted=false
+}
+----
+
+If username is encrypted using KMS the config looks like
+
+[source,HOCON]
+----
+username
+{
+    value="encrypted value"
+    encrypted=true
+}
+----
+
+If username is stored in secrets the config looks like
+
+[source,HOCON]
+----
+username
+{
+    useSecrets=true
+    secretId="the name of secret by which it is stored in secret manager"
+}
+----
+
+Using secrets is recommended.
+
+|password
+|config
+|The credentials by which the process connects to the database. The config is similar to username
+
+|connectionURL
+|config
+|A database connection URL is a string that your DBMS JDBC driver uses to connect to a database. It can contain information such as where to search for the database, the name of the database to connect to, and configuration properties. The exact syntax of a database connection URL is specified by your DBMS. The config is similar to username config.
+
+|connectionProperties
+|string
+|Optional. This can be used to pass any JDBC connection properties to the driver. Can also be passed using connection URL.
+
+|kmsEncryptionKey
+|string
+|Optional. If either of username, password , connectionURL is encrypted using KMS , this param holds the key by which it needs to decrypt the three values.
+
+|driverJars
+|string
+|The Google cloud storage path (gs://) of the respective Database driver jar. If running locally can be pointed to local path (file:///)
+
+|driverClassName
+|string
+| The Class Name to register and initialize for making a connection to the database.
+
+|parallelism
+|int
+|The pipeline supports pulling data from databases in parallel. This number is directly proportional to the number of connections to the database at run time. So always set a low number and check with Admin to see on how many connections can be made to the database at any point of time.
+This is similar to using https://sqoop.apache.org/docs/1.4.0-incubating/SqoopUserGuide.html#id1764013[Sqoop import with multiple mappers].
+
+|splitByKey
+|string
+| When the parallelism is set to > 1 this table column will be used to divide the data across multiple connections and will fetch the data in parallel. For more detailed explanation refer to https://sqoop.apache.org/docs/1.4.2/SqoopUserGuide.html#_controlling_parallelism
+
+|fetchSize
+|int
+|Specify the number of rows to be fetched from the database when additional rows are needed. Default is 4096.
+
+|query
+|string
+a| The Query to be used to run and fetch the data from database. Apart from any where clauses that you have also add `$CONDITIONS` at the end. This will be used by the process when fetching the data in parallel.
+
+Example Query
+
+[source,SQL]
+----
+select * from table where id>10 and $CONDITIONS
+----
+
+This will pull all the records with id greater than 10
+
+|schemaQuery
+|string
+|If the destination is bigquery, the process uses this query to get the schema from the database and converts SQL data types to  bigquery data types and creates table in bigquery dynamically.
+Make sure the query returns only one row using one of `LIMIT` , `TOP`, `ROWNUM` appropriately
+
+|===
+
+=== ReadPubSub
+
+Step `type` = `ReadPubSub`.
+ Below is the example config for this step
+[source,HOCON]
+----
+  step-01
+  {
+      type = ReadPubSub
+      subscription=<topic subscription>
+  }
+----
+
+[cols="2*", options="header"]
+|===
+|Configuration suffix|Description
+
+|topic
+| The topic from which you want to stream the data
+
+|subscription
+|If the topic has already a subscription, you can use subscription to stream the data
+
+|===
+
+=== ParseMessages
+Step `type` = `ParseMessages` . This Step is used along with step `ReadPubSub` to parse messages and convert to BigQuery accepted format.
+
+[cols="2*", options="header"]
+|===
+|Configuration suffix|Description
+
+|implementation
+a|Users need to define their own implementations on how to parse the messages and specify the class name of the implementation using this tag.
+
+
+[source,java]
+----
+include::../src/main/java/org/ascension/addg/gcp/ingestion/read/pubsub/ReadPubsubDoFn.java[]
+----
+
+Users need to extend the above class and override `apply` method to provide their own implementation. Please refer to the source code for more information.
+Since config will be passed as an argument to the constructor you can pass what ever params you need for your implementation and they will be available for the class at run time.
+
+|===
+
+=== WriteToBQ
+
+Step `type` = `WriteToBQ`
+This step provide details about writing the data to BigQuery.
+
+Example Configuration
+
+[source,HOCON]
+----
+ step-03
+    {
+      type = WriteToBQ
+      BQdatasetName = "aur_ingest"
+      BQtableName="adt_mrg_stream_land"
+      partitionBy = {
+        columnName = "bq_load_timestamp"
+        dataType = "TIMESTAMP"
+      }
+    }
+----
+
+[cols="3*", options="header"]
+|===
+|Configuration suffix|type|Description
+
+|BQdatasetName
+|string
+|The Dataset that you want the table to be created.
+
+|BQtableName
+|string
+| The table name to which you want to write the data. The table will be created by the process itself.
+
+|partitionBy
+|config
+a| If you want the table to be partitioned, specify the BigQuery partitioning scheme
+
+`columnName` tells on which column the table needs to be partitioned
+`dataType` The data Type of the column that is chosen above. For more details please read https://cloud.google.com/bigquery/docs/partitioned-tables[BigQuery Partitioned Tables]
+
+
+
+
+

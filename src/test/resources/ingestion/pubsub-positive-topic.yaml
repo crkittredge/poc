@@ -1,0 +1,14 @@
+# positive scenario using a topic
+name: pubsub-positive
+steps:
+  - type: ReadPubSub
+    topic: some_topic
+    replaceHeaderSpecialCharactersWith: "_"
+  - type: InjectMetadata
+  - type: WriteBigQuery
+    bqLandProject: conf_project
+    bqLandDataset: conf_dataset
+    bqLandTable: land_table
+    partitionBy:
+      columnName: "meta_load_timestamp"
+      dataType: "DAY"

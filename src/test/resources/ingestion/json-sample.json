@@ -1,0 +1,4 @@
+{ "FIELD_1": "A", "FIELD_2": "B", "FIELD_3": "1", "FIELD_4": [1, 2, 3], "FIELD_5": {"NESTED_1":  "A1", "NESTED_2":  1}, "FIELD_6": [], "FIELD_7": {} }
+{ "FIELD_1": "C", "FIELD_2": "D", "FIELD_3": "2", "FIELD_4": [1, 2, 3], "FIELD_5": {"NESTED_1":  "B2", "NESTED_2":  2}, "FIELD_6": [], "FIELD_7": {} }
+{ "FIELD_1": "E", "FIELD_2": "F", "FIELD_3": "3", "FIELD_4": [1, 2, 3], "FIELD_5": {"NESTED_1":  "C3", "NESTED_2":  3}, "FIELD_6": [], "FIELD_7": {} }
+{ "BAD: "JSON FIELD", "FIELD_2": "F", "FIELD_3": "3", "FIELD_4": [1, 2, 3] }
